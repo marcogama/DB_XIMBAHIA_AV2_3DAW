@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <!--LISTAR_UM_AV2_3DAW
+              ALUNO MARCO ANTONIO RIBEIRO GAMA --- MAT.1810478300006-->
+          <meta charset = "UTF-8">
+		  <title>LISTAR UM PRODUTO JS</title>
+          <script>
+                  function listar_Produtos(str) {
+                          
+                          const xmlhttp=new XMLHttpRequest();
+                          xmlhttp.onreadystatechange=function() {
+                                  if (this.readyState==4 && this.status==200) {
+                                          document.getElementById("aqui").innerHTML=this.responseText;
+                                  }
+                          }
+                          xmlhttp.open("GET","listarUm_Produto_PHP_AV2?p="+str,true);
+                          xmlhttp.send();
+                  }
+         </script>
+     </head>
+     <body>
+          <h3>Digite o codigo de barras</h3>
+          <form action = "">
+          <input type = "text" name = "ListaUm" onchange="listar_Produtos(this.value)">
+          </form>
+          <div id = "aqui"></div>
+          <br>
+      </body>
+</html>
