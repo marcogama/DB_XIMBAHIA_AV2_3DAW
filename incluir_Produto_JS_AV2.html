@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <!--INCLUIR_AV2_3DAW
+              ALUNO MARCO ANTONIO RIBEIRO GAMA --- MAT.1810478300006-->
+          <meta charset = "UTF-8">
+		  <title>INCLUIR PRODUTOS JS</title>
+          <script>
+                  function incluir_Produtos() {
+                          
+                          let NOME, NOME_FABR, CATEG, TIPO, PRECO_VENDA, QUANT_EST, PESO, IMG, DT_INC, AT1, AT2;
+                          let ALPHA = /([A-Z]|.)/gi, DIGIT =/([0-9]|,)/g, DATE = /([0-9]|\/|.|-)/g;
+                          if((NOME = document.getElementById("nome") == "") || (NOME = document.getElementById("nome") !=
+                              NOME.match(ALPHA))){
+                              document.getElementById("mensagem").innerHTML = "PREENCHA O NOME, APENAS COM LETRAS";
+                          }else{
+                              if((NOME_FABR = document.getElementById("n_fabr") == "") || (NOME_FABR = 
+                                  document.getElementById("n_fabr") != NOME_FABR.match(ALPHA))){
+                                  document.getElementById("mensagem").innerHTML = "PREENCHA O NOME DO FABRICANTE, COM LETRAS";
+                              }else{
+                                  if((CATEG = document.getElementById("cat") == "") || (CATEG = 
+                                     document.getElementById("cat") != CATEG.match(DIGIT))){
+                                     document.getElementById("mensagem").innerHTML = "SELECIONE UMA CATEGORIA";
+                                  }else{
+                                      if((TIPO = document.getElementById("tipo") == "") || (TIPO = 
+                                         document.getElementById("tipo") != TIPO.match(DIGIT))){
+                                         document.getElementById("mensagem").innerHTML = "SELECIONE UM TIPO";
+                                      }else{
+                                          if((PRECO_VENDA = document.getElementById("prec_V") == "") || (PRECO_VENDA = 
+                                             document.getElementById("prec_V") != PRECO_VENDA.match(DIGIT))){
+                                             document.getElementById("mensagem").innerHTML = "DIGITE O PREÇO, 00,00";
+                                          }else{
+                                              if((QUANT_EST = document.getElementById("quant_est") == "") || (QUANT_EST = 
+                                                 document.getElementById("quant_est") != QUANT_EST.match(DIGIT))){
+                                                 document.getElementById("mensagem").innerHTML = 
+                                                 "DIGITE A QUANTIDADE EM ESTOQUE";
+                                              }else{
+                                                  if((PESO = document.getElementById("peso") == "") || (PESO = 
+                                                     document.getElementById("peso") != PESO.match(DIGIT))){
+                                                     document.getElementById("mensagem").innerHTML = "DIGITE O PESO, 00,00";
+                                                  }else{
+                                                      if(IMG = document.getElementById("img") == ""){
+                                                          document.getElementById("mensagem").innerHTML = 
+                                                          "DIGITE O NOME DO ARQUIVO JPG";
+                                                      }else{
+                                                          if((DT_INC = document.getElementById("dt_inc") == "") || (DT_INC = 
+                                                              document.getElementById("") != DT_INC.match(DATE))){
+                                                              document.getElementById("mensagem").innerHTML =
+                                                              "SELECIONE A DATA";
+                                                          }else{
+                                                              if((AT1 = document.getElementById("at1") == null) && (AT2 =
+                                                                  document.getElementById("at2") == null)){
+                                                                  document.getElementById("mensagem").innerHTML =
+                                                                  "SELECIONE ATIVO OU NAO-ATIVO";
+                                                              }else{
+                                                                  const xmlhttp = new XMLHttpRequest();
+                                                                  xmlhttp.onreadystatechange = function() {
+                                                                          if (this.readyState == 4 && this.status == 200) {
+                                                                              document.getElementById("aqui").innerHTML = 
+                                                                              this.responseText;
+                                                                          }
+                                                                  }
+                                                                  xmlhttp.open("GET","listar_Produto_PHP_AV2.php?p="+NOME
+                                                                               +NOME_FABR,+CATEG+TIPO+PRECO_VENDA+QUANT_EST 
+                                                                               +PESO+IMG+DT_INC+AT1+AT2, true);
+                                                                  xmlhttp.send();
+                                                              }
+                                                          }
+                                                      }
+                                                  }
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                  }
+              
+                function mostra_Op(str){
+                    if(str.length > 0){
+                        const xmlhttp = new XMLHttpRequest();
+                        xmlhttp.onreadystatechange = function(){
+                            if(this.readyState == 4 && this.status == 200){
+                                if(document.getElementById("categoria").value == str){
+                                    document.getElementById("categoria").innerHTML = this.reponseText;
+                                }else{
+                                    document.getElementById("tipo_Tipo").innerHTML = this.responseText;
+                                }
+                            }
+                        }
+                        xmlhttp.open("GET","tag_Op_PHP_AV2.php?p="+str, true);
+                        xmlhttp.send();
+                    }
+                }
+         </script>
+     </head>
+     <body>
+          <form action = "" onsubmit = "incluir_Produtos()">
+              <fieldset>
+                       <legend>INCLUIR PRODUTOS</legend>
+                              NOME DO PRODUTO:<input type = "text" name = "NOME" id = "nome">
+                              NOME DO FABRICANTE:<input type = "text" name = "NOME_FABR" id = "n_fabr">
+                              <label for = "CATEG">SELECIONE UMA CATEGORIA:</label><br>
+                              <select name = "CATEG" id = "cat">
+                                     <option value="categoria" onclick = "mostra_Op(this.value)"></option>
+                                     <p id = "categoria"></p>
+                              </select>
+                              <label for = "TIPO">SELECIONE O TIPO DO PRODUTO</label>
+                              <select name = "TIPO" id = "tipo">
+                                     <option value="tipo" onclick = "mostra_Op(this.value)"></option>
+                                     <p id = "tipo_Tipo"></p>
+                              </select>
+                              PREÇO DE VENDA:<input type = "text" name = "PRECO_VENDA" id = "prec_V">
+                              QUANTIDADE ESTOQUE:<input type = "text" name = "QUANT_EST" id = "quant_Est">
+                              PESO:<input type = "text" name = "PESO" id = "peso">
+                              FOTO:<input type = "text" name = "IMG" id = "img">
+                              DATA DA INCLUSAO:<input type = "text" name = "DT_INC" id = "dt_inc">
+                              <input type = "radio" name = "AT1" id = "at1" value = "true">
+                              <label for = "AT1">ATIVO</label>
+                              <input type = "radio" name = "AT2" id = "at2" value = "false">
+                              <label for = "AT2">NA0-ATIVO</label>
+              </fieldset>
+              <br><br>
+              <input type = "submit" value = "enviar">
+         </form> 
+         <p id = "mensagem"></p>
+     </body>
+</html>
