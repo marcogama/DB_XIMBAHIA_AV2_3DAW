@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <!--LISTAR_AV2_3DAW
+              ALUNO MARCO ANTONIO RIBEIRO GAMA --- MAT.1810478300006-->
+          <meta charset = "UTF-8">
+		  <title>LISTAR PRODUTOS JS</title>
+          <script>
+                  function listar_Produtos() {
+                          
+                          const xmlhttp=new XMLHttpRequest();
+                          xmlhttp.onreadystatechange=function() {
+                                  if (this.readyState==4 && this.status==200) {
+                                          document.getElementById("aqui").innerHTML=this.responseText;
+                                  }
+                          }
+                          xmlhttp.open("GET","listar_Produto_PHP_AV2",true);
+                          xmlhttp.send();
+                  }
+         </script>
+     </head>
+     <body>
+          <h3>Listar Produtos</h3>   
+          <button type = "button" onclick="listar_Produtos()">Listar</button>
+          <div id = "aqui"></div>
+          <br>
+      </body>
+</html>
+
