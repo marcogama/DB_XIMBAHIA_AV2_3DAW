@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+    <!--MARCO ANTONIO RIBEIRO GAMA
+	    MAT 1810478300006-->
+    <head>
+	    <meta charset = "UTF-8">
+		<title>EXCLUIR PRODUTO JS </title>
+		<script>
+		       function exclui_Produto(str) {
+                                
+                       if (str.length > 0) {
+                               const xmlhttp = new XMLHttpRequest();
+                               xmlhttp.onreadystatechange = function() {
+                                                                    if (this.readyState == 4 && this.status == 200) {
+                                                                            document.getElementById("aqui").innerHTML =
+                                                                            this.responseText;
+                                                                    }
+                                                            }
+                                                            xmlhttp.open("GET", "excluir_Produto_PHP_AV2.php?p="+str, true);
+                                                            xmlhttp.send();
+                       }else{
+                                document.getElementById("aqui").innerHTML = "";
+                       }
+               }
+				
+			   function confirma_Exclui(){
+			           let CODBAR;
+					   CODBAR = document.getElementById("codbar");
+                       let DIGIT =/([0-9]|,)/g;
+                       if((CODBAR == "") || (CODBAR !=
+                           CODBAR.match(DIGIT))){
+                           document.getElementById("mensagem").innerHTML = "DIGITE O CODIGO DE BARRAS";
+                       }else{
+                                const xmlhttp = new XMLHttpRequest();
+                                xmlhttp.onreadystatechange = function() {
+                                                                     if (this.readyState == 4 && this.status == 200) {
+                                                                             document.getElementById("mensagem").innerHTML = 
+                                                                             this.responseText;
+                                                                     }
+                                                             }
+                                                             xmlhttp.open("GET","confirma_Excluir_PHP_AV2.php?c_b="
+                                                                           +CODBAR, true);
+                                                             xmlhttp.send();
+                       }
+				}
+		</script>
+	</head>
+	<body>
+	    <form action = "" onsubmit = "confirma_Exclui()">
+		    <fieldset>
+			        <legend>Excluir Produto</legend> 
+			        <label for = "exclui">Digite o codigo de barras:</label><br>
+					<input type = "text" name = "exclui" id = "codbar" onchange = "exclui_Produto(this.value)">
+			</fieldset>
+			<p id = "aqui"></p>
+		</form>
+	</body>
+</html>
